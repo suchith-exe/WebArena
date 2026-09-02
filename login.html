@@ -120,19 +120,19 @@
       const userField = document.getElementById("username").value.trim();
       const passField = document.getElementById("password").value;
 
-      // 1. Fetch registered users from localStorage (or fallback if empty)
+     
       const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || {};
 
-      // 2. Validate credentials (if user exists, check pass; otherwise allow login for demo)
+  
       if (registeredUsers[userField] && registeredUsers[userField] !== passField) {
         alert("Incorrect password! Please try again.");
         return;
       }
 
-      // 3. Save active session
+    
       localStorage.setItem("currentUser", userField);
 
-      // 4. Redirect to homepage
+   
       window.location.href = "homepage.html";
     });
   </script>
