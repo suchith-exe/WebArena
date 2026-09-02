@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Profile & Stats</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      background: url('https://img.magnific.com/premium-photo/3d-color-question-marks-frame-purple-render-background-concept-school-education-questionnaire-quiz-banner-template-with-border-ask-sign-symbols-empty-space-text_645257-2721.jpg?semt=ais_hybrid&w=740&q=80') no-repeat;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .navbar {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
+      padding: 15px 25px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
+    .navbar .logo { font-size: 20px; font-weight: 700; }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 600;
+    }
+    .nav-links a:hover { color: #38bdf8; }
+
+    .wrapper {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 30px;
+    }
+
+    .profile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+    }
+
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-card h3 {
+      font-size: 28px;
+      color: #38bdf8;
+      margin-bottom: 5px;
+    }
+    .stat-card p {
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    th {
+      background: rgba(255, 255, 255, 0.15);
+      color: #f8fafc;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">⚡ WebArena</div>
+    <div class="nav-links">
+      <a href="homepage.html">Home</a>
+      <a href="profile.html">My Stats</a>
+      <a href="music.html">Music</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </div>
+  </nav>
+
+  <div class="wrapper">
+    <div class="profile-header">
+      <div>
+        <h1 id="prof-user">Player Profile</h1>
+        <p id="prof-email" style="color: #cbd5e1; font-size: 14px; margin-top: 4px;"></p>
+      </div>
+    </div>
+
+  
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3 id="stat-quizzes">0</h3>
+        <p>Quizzes Taken</p>
+      </div>
+      <div class="stat-card">
+        <h3 id="stat-accuracy">0%</h3>
+        <p>Overall Accuracy</p>
+      </div>
+      <div class="stat-card">
+        <h3 id="stat-score">0</h3>
+        <p>Total Points</p>
+      </div>
+    </div>
+
+   
+    <h2 style="font-size: 20px; margin-bottom: 15px;">Recent Performance</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Score</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="history-rows">
+        <tr><td colspan="3" style="text-align: center; color: #94a3b8;">No quizzes played yet! Go take one from the Home tab.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+   
+    const username = localStorage.getItem("currentUser");
+    if (!username) {
+      window.location.href = "login.html";
+    }
+
+    document.getElementById("prof-user").innerText = username;
+
+  
+    const users = JSON.parse(localStorage.getItem("registeredUsers")) || {};
+    if (users[username] && users[username].email) {
+      document.getElementById("prof-email").innerText = users[username].email;
+    }
+
+ 
+    const stats = JSON.parse(localStorage.getItem(`userStats_${username}`));
+    if (stats && stats.totalQuizzes > 0) {
+      document.getElementById("stat-quizzes").innerText = stats.totalQuizzes;
+      document.getElementById("stat-score").innerText = `${stats.totalScore} / ${stats.maxPossibleScore}`;
+
+      const accuracy = Math.round((stats.totalScore / stats.maxPossibleScore) * 100);
+      document.getElementById("stat-accuracy").innerText = `${accuracy}%`;
+
+      if (stats.history && stats.history.length > 0) {
+        const tbody = document.getElementById("history-rows");
+        tbody.innerHTML = stats.history.map(item => `
+          <tr>
+            <td>${item.subject}</td>
+            <td><strong>${item.score}</strong> / ${item.total}</td>
+            <td>${item.date}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
