@@ -1,317 +1,381 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
     <head>
-
-        <title>quiz page</title>
-
-        <meta= name="viewport" content="width=device-width,initial-scale=1.0">
-
+        <meta charset="UTF-8">
+        <title>Geography Quiz - WebArena</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-image: url("quizbg.jpeg");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                color: rgba(255, 255, 255, 0.8);
+                min-height: 100vh;
+                background-attachment: fixed;
+                padding: 20px;
+            }
 
-            input[type="radio"]{display:none}
+         
+            .navbar {
+                width: 100%;
+                max-width: 600px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: rgba(255, 255, 255, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.4);
+                backdrop-filter: blur(10px);
+                padding: 12px 20px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+            }
+            .navbar .logo { font-size: 18px; font-weight: bold; color: rgb(0, 0, 128); }
+            .nav-links a {
+                color: rgb(0, 0, 128);
+                text-decoration: none;
+                margin-left: 15px;
+                font-weight: bold;
+            }
+            .nav-links a:hover { text-decoration: underline; }
 
-            .option{border :2px solid rgba(138, 43, 226,0.3); border-radius:12px; padding:12px;cursor:pointer;font-size:20px;width:400px; text-align:center}
+            input[type="radio"] { display: none; }
+            .option {
+                border: 2px solid rgba(138, 43, 226, 0.3);
+                border-radius: 12px;
+                padding: 12px;
+                cursor: pointer;
+                font-size: 18px;
+                width: 400px;
+                max-width: 100%;
+                text-align: center;
+                display: inline-block;
+                color: rgb(0, 0, 128);
+                background-color: rgba(255, 255, 255, 0.6);
+            }
+            .option:hover { background-color: rgba(154, 76, 237, 0.6); }
+            input[type="radio"]:checked + .option { background-color: rgba(154, 76, 237, 0.9); color: #fff; }
 
-            .option:hover{background-color: rgba(154, 76, 237, 0.6); cursor:pointer}
+            .question {
+                color: rgba(0, 0, 128, 0.85);
+                width: 100%;
+                border: 1px solid rgba(255, 255, 255, 0.5);
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(154, 76, 237, 1);
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+            }
 
-            input[type="radio"]:checked+.option{background-color: rgba(154, 76, 237, 0.9); cursor:pointer}
+            #second, #third, #fourth, #fifth { display: none; }
+            #quiz { display: flex; flex-direction: column; align-items: center; width: 600px; max-width: 95%; }
 
-            .question{color:rgb(0, 0, 128,0.65);width:100%;border:1px solid rgb(255, 255, 255,0.5); border-radius:10px; 
+            button {
+                font-size: 16px;
+                background-color: rgba(154, 76, 237, 0.8);
+                color: rgb(0, 0, 128);
+                border: none;
+                padding: 12px 25px;
+                text-align: center;
+                cursor: pointer;
+                border-radius: 5px;
+                font-weight: bold;
+            }
+            button:hover { background-color: rgba(154, 76, 237, 1); color: #fff; }
 
-            padding:10px;box-shadow:0 5px 20px  rgba(154, 76, 237, 1);box-sizing: border-box; display: flex;flex-direction: column;align-items: center}
-
-            #second{display:none}
-
-            #third{display:none}
-
-            #fourth{display:none}
-
-            #fifth{display:none}
-
-            #quiz {display: flex;flex-direction: column;align-items: center; width:600px;max-width:90%}
-
-            body{display: flex;justify-content: center;align-items: flex-start; background-image: url("quizbg.jpeg");background-size:cover;
-
-            background-position: center;background-repeat:no-repeat;color:rgb(255, 255, 255,0.8);min-height:100vh;background-attachment:fixed}
-
-            button{font-size:18px; background-color: rgba(154, 76, 237, 0.6); color: rgb(0, 0,128,0.95); border: none; padding: 15px 20px; text-align: center;cursor: pointer; border-radius: 5px;}
-
-            .welcome{font-weight:bold; font-size:30px;color:rgb(0, 0, 128,0.65);font-family:Arial, Helvetica, sans-serif}
-
-            h1{color:rgb(0, 0, 128,0.65);font-weight:bold;font-size:40px; font-family:Arial, Helvetica, sans-serif}
-
-            .qno{font-weight:bold; font-size:20px;color:rgb(0, 0, 128,0.65);font-family:Arial, Helvetica, sans-serif}
-
-            .q{font-weight:bold; font-size:20px;color:rgb(0, 0, 128,0.65);font-family:Arial, Helvetica, sans-serif}
-
-            #score1{font-weight:bold; font-size:20px;color:rgb(0, 0, 128,0.65);font-family:Arial, Helvetica, sans-serif}
-
-            #score2{font-weight:bold; font-size:20px;color:rgb(0, 0, 128,0.65);font-family:Arial, Helvetica, sans-serif}
-
-            #score3{font-weight:bold; font-size:20px;color:rgb(0, 0, 128,0.65);font-family:Arial, Helvetica, sans-serif}
-
-            #score4{font-weight:bold; font-size:20px;color:rgb(0, 0, 128,0.65);font-family:Arial, Helvetica, sans-serif}
-
-            #score5{font-weight:bold; font-size:20px;color:rgb(0, 0, 128,0.65);font-family:Arial, Helvetica, sans-serif}
-
-
-
+            .welcome { font-weight: bold; font-size: 26px; color: rgb(0, 0, 128); margin-bottom: 15px; }
+            h1 { color: rgb(0, 0, 128); font-weight: bold; font-size: 34px; margin-bottom: 5px; }
+            .qno { font-weight: bold; font-size: 18px; color: rgb(0, 0, 128); margin-bottom: 8px; }
+            .q { font-weight: bold; font-size: 20px; color: rgb(0, 0, 128); margin-bottom: 15px; text-align: center; }
+            .score-text { font-weight: bold; font-size: 18px; color: rgb(0, 0, 128); margin-top: 15px; }
         </style>
-
     </head>
-
     <body>
 
+    
+        <nav class="navbar">
+            <div class="logo">⚡ WebArena</div>
+            <div class="nav-links">
+                <a href="homepage.html">Home</a>
+                <a href="profile.html">My Stats</a>
+                <a href="music.html">Music</a>
+            </div>
+        </nav>
+
         <div id="quiz">
-
-            <h1 align="center">Quiz Page</h1>
-
+            <h1>Quiz Page</h1>
             <p class="welcome">Welcome to Geography Quiz!</p>
 
+        
             <div id="first" class="question">
-
                 <p class="qno">Question 1 of 5</p>
-
                 <p class="q">What is the largest continent by area?</p>
 
                 <input type="radio" name="q1" id="a1">
-
                 <label class="option" for="a1" id="a1o">Africa</label><br><br>
 
                 <input type="radio" name="q1" id="a2">
-
                 <label class="option" for="a2" id="a2o">Asia</label><br><br>
 
                 <input type="radio" name="q1" id="a3">
-
                 <label class="option" for="a3" id="a3o">Europe</label><br><br>
 
                 <input type="radio" name="q1" id="a4">
+                <label class="option" for="a4" id="a4o">North America</label><br><br>
 
-                <label class="option" for="a4" id="a4o">North America</label><br><br><div style="display:flex; gap:20px">
+                <div style="display:flex; gap:20px">
+                    <button id="sub1" onclick="check1();">Submit</button> 
+                    <button type="button" style="display:none" id="next1" onclick="next1()">Next</button>
+                </div>
+                <p id="score1" class="score-text"></p>
+            </div>
 
-                <button onclick="check1();">Submit</button> 
-
-                <button type="button" style="display:none" id="next1" onclick="next1()">Next</button></div>
-
-                <p id="score1"></p></div>
-
-                <div id="second" class="question">
-
-                    <p class="qno">Question 2 of 5</p>
-
-                    <p class="q">Which is the longest river in India?</p>
+        
+            <div id="second" class="question">
+                <p class="qno">Question 2 of 5</p>
+                <p class="q">Which is the longest river in India?</p>
 
                 <input type="radio" name="q2" id="b1">
-
                 <label class="option" for="b1" id="b1o">Yamuna</label><br><br>
 
                 <input type="radio" name="q2" id="b2">
-
                 <label class="option" for="b2" id="b2o">Narmada</label><br><br>
 
                 <input type="radio" name="q2" id="b3">
-
                 <label class="option" for="b3" id="b3o">Godavari</label><br><br>
 
                 <input type="radio" name="q2" id="b4">
+                <label class="option" for="b4" id="b4o">Ganga</label><br><br>
 
-                <label class="option" for="b4" id="b4o">Ganga</label><br><br><div style="display:flex;gap:20px">
-
-                <button onclick="check2();">Submit</button> 
-
-                <button type="button" style="display:none" id="next2" onclick="next2()">Next</button></div>
-
-                <p id="score2"></p>          
-
+                <div style="display:flex; gap:20px">
+                    <button id="sub2" onclick="check2();">Submit</button> 
+                    <button type="button" style="display:none" id="next2" onclick="next2()">Next</button>
                 </div>
-
-                <div id="third" class="question">
-
-                    <p class="qno">Question 3 of 5</p>
-
-                    <p class="q">Which is the largest ocean on Earth?</p>
-
-                <input type="radio" name="q3" id="c1">
-
-                <label class="option" for="c1" id="c1o">Atlantic Ocean</label><br><br><br>
-
-                <input type="radio" name="q3" id="c2">
-
-                <label class="option" for="c2" id="c2o">Indian Ocean</label><br><br><br>
-
-                <input type="radio" name="q3" id="c3">
-
-                <label class="option" for="c3" id="c3o">Pacific Ocean</label><br><br><br>
-
-                <input type="radio" name="q3" id="c4">
-
-                <label class="option" for="c4" id="c4o">Arctic Ocean</label><br><br><br><div style="display:flex;gap:20px">
-
-                <button onclick="check3();">Submit</button> 
-
-                <button type="button" style="display:none" id="next3" onclick="next3()">Next</button></div>
-
-                <p id="score3"></p>    
-
-                </div>
-
-                <div id="fourth" class="question">
-
-                    <p class="qno">Question 4 of 5</p>
-
-                    <p class="q">Which desert is located mainly in northern Africa?</p>
-
-                <input type="radio" name="q4" id="d1">
-
-                <label class="option" for="d1" id="d1o">Sahara Desert</label><br><br><br>
-
-                <input type="radio" name="q4" id="d2">
-
-                <label class="option" for="d2" id="d2o">Gobi Desert</label><br><br><br>
-
-                <input type="radio" name="q4" id="d3">
-
-                <label class="option" for="d3" id="d3o">Thar Desert</label><br><br><br>
-
-                <input type="radio" name="q4" id="d4">
-
-                <label class="option" for="d4" id="d4o">Kalahari Desert</label><br><br><br><div style="display:flex;gap:20px">
-
-                <button onclick="check4();">Submit</button> 
-
-                <button type="button" style="display:none" id="next4" onclick="next4()">Next</button></div>
-
-                <p id="score4"></p>    
-
-                </div>
-
-                <div id="fifth" class="question">
-
-                    <p class="qno">Question 5 of 5</p>
-
-                    <p class="q">Which country is known as the Land of the Rising Sun?</p>
-
-                <input type="radio" name="q5" id="e1">
-
-                <label class="option" for="e1" id="e1o">China</label><br><br><br>
-
-                <input type="radio" name="q5" id="e2">
-
-                <label class="option" for="e2" id="e2o">Japan</label><br><br><br>
-
-                <input type="radio" name="q5" id="e3">
-
-                <label class="option" for="e3" id="e3o">South Korea</label><br><br><br>
-
-                <input type="radio" name="q5" id="e4">
-
-                <label class="option" for="e4" id="e4o">Thailand</label><br><br><br><div style="display:flex;gap:20px">
-
-                <button onclick="check5();">Submit</button> 
-
-                <button type="button" style="display:none" id="next5" onclick="next5();">Next</button></div>
-
-                <p id="score5"></p>    
-
-                </div>
-
-                <script>
-
-                    let score=0;
-
-                    function check1(){
-
-                    if (!document.querySelector('input[name="q1"]:checked')){alert("Please select an answer before submitting."); return;}
-
-                    if (document.getElementById("a2").checked) {score++; document.getElementById("score1").innerHTML="Correct Answer!Your score is: "+score;document.getElementById('next1').style.display='block';document.getElementById('a2o').style.backgroundColor='green'}
-
-                    else{document.getElementById("score1").innerHTML="Wrong Answer!Your score is: "+ score;document.getElementById('next1').style.display='block';document.getElementById('a2o').style.backgroundColor='green'}}
-
-
-
-                    function check2(){
-
-                    if (!document.querySelector('input[name="q2"]:checked')){alert("Please select an answer before submitting."); return;}    
-
-                    if (document.getElementById("b4").checked) {score++; document.getElementById("score2").innerHTML="Correct Answer!Your score is: "+score;document.getElementById('next2').style.display='block';document.getElementById('b4o').style.backgroundColor='green'}
-
-                    else{document.getElementById("score2").innerHTML="Wrong Answer!Your score is: "+ score;document.getElementById('next2').style.display='block';document.getElementById('b4o').style.backgroundColor='green'}}
-
-                    function check3(){
-
-                    if (!document.querySelector('input[name="q3"]:checked')){alert("Please select an answer before submitting."); return;}
-
-                    if (document.getElementById("c3").checked) {score++; document.getElementById("score3").innerHTML="Correct Answer!Your score is: "+score;document.getElementById('next3').style.display='block';document.getElementById('c3o').style.backgroundColor='green'}
-
-                    else{document.getElementById("score3").innerHTML="Wrong Answer!Your score is: "+ score;document.getElementById('next3').style.display='block';document.getElementById('c3o').style.backgroundColor='green'}}
-
-                    function check4(){
-
-                    if (!document.querySelector('input[name="q4"]:checked')){alert("Please select an answer before submitting."); return;}
-
-                    if (document.getElementById("d1").checked) {score++; document.getElementById("score4").innerHTML="Correct Answer!Your score is: "+score;document.getElementById('next4').style.display='block';document.getElementById('d1o').style.backgroundColor='green'}
-
-                    else{document.getElementById("score4").innerHTML="Wrong Answer!Your score is: "+ score;document.getElementById('next4').style.display='block';document.getElementById('d1o').style.backgroundColor='green'}}
-
-                    function check5(){
-
-                    if (!document.querySelector('input[name="q5"]:checked')){alert("Please select an answer before submitting."); return;}
-
-                    if (document.getElementById("e2").checked) {score++; document.getElementById("score5").innerHTML="Correct Answer!Your score is: "+score;document.getElementById('next5').style.display='block';document.getElementById('e2o').style.backgroundColor='green'}
-
-                    else{document.getElementById("score5").innerHTML="Wrong Answer!Your score is: "+ score;document.getElementById('next5').style.display='block';document.getElementById('e2o').style.backgroundColor='green'}}
-
-
-
-                    function next1(){
-
-                        document.getElementById("second").style.display="flex";
-
-                        document.getElementById("first").style.display="none";
-
-                    }
-
-                    function next2(){
-
-                        document.getElementById("third").style.display="flex";
-
-                        document.getElementById("second").style.display="none";
-
-                    }
-
-                    function next3(){
-
-                        document.getElementById("fourth").style.display="flex";
-
-                        document.getElementById("third").style.display="none";
-
-                    }
-
-                    function next4(){
-
-                        document.getElementById("fifth").style.display="flex";
-
-                        document.getElementById("fourth").style.display="none";
-
-                    }
-
-                    function next5(){
-
-                        document.getElementById("fifth").style.display="flex";
-
-                        document.getElementById("fourth").style.display="none";
-
-                    }
-
-                </script>
-
+                <p id="score2" class="score-text"></p>          
             </div>
 
+         
+            <div id="third" class="question">
+                <p class="qno">Question 3 of 5</p>
+                <p class="q">Which is the largest ocean on Earth?</p>
 
+                <input type="radio" name="q3" id="c1">
+                <label class="option" for="c1" id="c1o">Atlantic Ocean</label><br><br>
 
+                <input type="radio" name="q3" id="c2">
+                <label class="option" for="c2" id="c2o">Indian Ocean</label><br><br>
+
+                <input type="radio" name="q3" id="c3">
+                <label class="option" for="c3" id="c3o">Pacific Ocean</label><br><br>
+
+                <input type="radio" name="q3" id="c4">
+                <label class="option" for="c4" id="c4o">Arctic Ocean</label><br><br>
+
+                <div style="display:flex; gap:20px">
+                    <button id="sub3" onclick="check3();">Submit</button> 
+                    <button type="button" style="display:none" id="next3" onclick="next3()">Next</button>
+                </div>
+                <p id="score3" class="score-text"></p>    
+            </div>
+
+   
+            <div id="fourth" class="question">
+                <p class="qno">Question 4 of 5</p>
+                <p class="q">Which desert is located mainly in northern Africa?</p>
+
+                <input type="radio" name="q4" id="d1">
+                <label class="option" for="d1" id="d1o">Sahara Desert</label><br><br>
+
+                <input type="radio" name="q4" id="d2">
+                <label class="option" for="d2" id="d2o">Gobi Desert</label><br><br>
+
+                <input type="radio" name="q4" id="d3">
+                <label class="option" for="d3" id="d3o">Thar Desert</label><br><br>
+
+                <input type="radio" name="q4" id="d4">
+                <label class="option" for="d4" id="d4o">Kalahari Desert</label><br><br>
+
+                <div style="display:flex; gap:20px">
+                    <button id="sub4" onclick="check4();">Submit</button> 
+                    <button type="button" style="display:none" id="next4" onclick="next4()">Next</button>
+                </div>
+                <p id="score4" class="score-text"></p>    
+            </div>
+
+   
+            <div id="fifth" class="question">
+                <p class="qno">Question 5 of 5</p>
+                <p class="q">Which country is known as the Land of the Rising Sun?</p>
+
+                <input type="radio" name="q5" id="e1">
+                <label class="option" for="e1" id="e1o">China</label><br><br>
+
+                <input type="radio" name="q5" id="e2">
+                <label class="option" for="e2" id="e2o">Japan</label><br><br>
+
+                <input type="radio" name="q5" id="e3">
+                <label class="option" for="e3" id="e3o">South Korea</label><br><br>
+
+                <input type="radio" name="q5" id="e4">
+                <label class="option" for="e4" id="e4o">Thailand</label><br><br>
+
+                <div style="display:flex; gap:20px">
+                    <button id="sub5" onclick="check5();">Submit</button> 
+                    <button type="button" style="display:none" id="next5" onclick="finishQuiz();">Finish Quiz & View Stats</button>
+                </div>
+                <p id="score5" class="score-text"></p>    
+            </div>
         </div>
 
-        </body>
+        <script>
+            let score = 0;
 
-        </html>
+            function check1() {
+                if (!document.querySelector('input[name="q1"]:checked')) {
+                    alert("Please select an answer before submitting."); 
+                    return;
+                }
+                document.getElementById('sub1').style.display = 'none';
+                if (document.getElementById("a2").checked) {
+                    score++; 
+                    document.getElementById("score1").innerHTML = "Correct Answer! Your current score is: " + score;
+                    document.getElementById('a2o').style.backgroundColor = '#4ade80';
+                } else {
+                    document.getElementById("score1").innerHTML = "Wrong Answer! Your current score is: " + score;
+                    document.getElementById('a2o').style.backgroundColor = '#4ade80';
+                }
+                document.getElementById('next1').style.display = 'block';
+            }
+
+            function check2() {
+                if (!document.querySelector('input[name="q2"]:checked')) {
+                    alert("Please select an answer before submitting."); 
+                    return;
+                }    
+                document.getElementById('sub2').style.display = 'none';
+                if (document.getElementById("b4").checked) {
+                    score++; 
+                    document.getElementById("score2").innerHTML = "Correct Answer! Your current score is: " + score;
+                    document.getElementById('b4o').style.backgroundColor = '#4ade80';
+                } else {
+                    document.getElementById("score2").innerHTML = "Wrong Answer! Your current score is: " + score;
+                    document.getElementById('b4o').style.backgroundColor = '#4ade80';
+                }
+                document.getElementById('next2').style.display = 'block';
+            }
+
+            function check3() {
+                if (!document.querySelector('input[name="q3"]:checked')) {
+                    alert("Please select an answer before submitting."); 
+                    return;
+                }
+                document.getElementById('sub3').style.display = 'none';
+                if (document.getElementById("c3").checked) {
+                    score++; 
+                    document.getElementById("score3").innerHTML = "Correct Answer! Your current score is: " + score;
+                    document.getElementById('c3o').style.backgroundColor = '#4ade80';
+                } else {
+                    document.getElementById("score3").innerHTML = "Wrong Answer! Your current score is: " + score;
+                    document.getElementById('c3o').style.backgroundColor = '#4ade80';
+                }
+                document.getElementById('next3').style.display = 'block';
+            }
+
+            function check4() {
+                if (!document.querySelector('input[name="q4"]:checked')) {
+                    alert("Please select an answer before submitting."); 
+                    return;
+                }
+                document.getElementById('sub4').style.display = 'none';
+                if (document.getElementById("d1").checked) {
+                    score++; 
+                    document.getElementById("score4").innerHTML = "Correct Answer! Your current score is: " + score;
+                    document.getElementById('d1o').style.backgroundColor = '#4ade80';
+                } else {
+                    document.getElementById("score4").innerHTML = "Wrong Answer! Your current score is: " + score;
+                    document.getElementById('d1o').style.backgroundColor = '#4ade80';
+                }
+                document.getElementById('next4').style.display = 'block';
+            }
+
+            function check5() {
+                if (!document.querySelector('input[name="q5"]:checked')) {
+                    alert("Please select an answer before submitting."); 
+                    return;
+                }
+                document.getElementById('sub5').style.display = 'none';
+                if (document.getElementById("e2").checked) {
+                    score++; 
+                    document.getElementById("score5").innerHTML = "Correct Answer! Final score: " + score + " / 5";
+                    document.getElementById('e2o').style.backgroundColor = '#4ade80';
+                } else {
+                    document.getElementById("score5").innerHTML = "Wrong Answer! Final score: " + score + " / 5";
+                    document.getElementById('e2o').style.backgroundColor = '#4ade80';
+                }
+                document.getElementById('next5').style.display = 'block';
+            }
+
+            function next1() {
+                document.getElementById("second").style.display = "flex";
+                document.getElementById("first").style.display = "none";
+            }
+            function next2() {
+                document.getElementById("third").style.display = "flex";
+                document.getElementById("second").style.display = "none";
+            }
+            function next3() {
+                document.getElementById("fourth").style.display = "flex";
+                document.getElementById("third").style.display = "none";
+            }
+            function next4() {
+                document.getElementById("fifth").style.display = "flex";
+                document.getElementById("fourth").style.display = "none";
+            }
+
+       
+            function finishQuiz() {
+                const username = localStorage.getItem("currentUser") || "Guest";
+                const statsKey = `userStats_${username}`;
+
+                let stats = JSON.parse(localStorage.getItem(statsKey)) || {
+                    totalQuizzes: 0,
+                    totalScore: 0,
+                    maxPossibleScore: 0,
+                    history: []
+                };
+
+        
+                stats.totalQuizzes += 1;
+                stats.totalScore += score;
+                stats.maxPossibleScore += 5;
+
+     
+                stats.history.unshift({
+                    subject: "Geography",
+                    score: score,
+                    total: 5,
+                    date: new Date().toLocaleDateString()
+                });
+
+                
+                localStorage.setItem(statsKey, JSON.stringify(stats));
+
+              
+                window.location.href = "profile.html";
+            }
+        </script>
+    </body>
+</html>
