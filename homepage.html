@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebArena - Quiz Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      background: url('https://img.magnific.com/premium-photo/3d-color-question-marks-frame-purple-render-background-concept-school-education-questionnaire-quiz-banner-template-with-border-ask-sign-symbols-empty-space-text_645257-2721.jpg?semt=ais_hybrid&w=740&q=80') no-repeat;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    
+    .navbar {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
+      padding: 15px 25px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+    .navbar .logo {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #38bdf8;
+    }
+
+   
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+    }
+    .container h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .container p {
+      font-size: 16px;
+      color: #e2e8f0;
+      margin-bottom: 30px;
+    }
+
+  
+    .quiz-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .quiz-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 25px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .quiz-card:hover {
+      transform: translateY(-5px);
+      background: rgba(65, 105, 225, 0.4);
+    }
+    .quiz-card .icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+    .quiz-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .quiz-card span {
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <nav class="navbar">
+    <div class="logo">⚡ WebArena</div>
+    <div class="nav-links">
+      <a href="homepage.html">Home</a>
+      <a href="profile.html">My Stats</a>
+      <a href="music.html">Music</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </div>
+  </nav>
+
+
+  <div class="container">
+    <h1 id="welcome-msg">Welcome to WebArena!</h1>
+    <p>Select a category below to test your knowledge.</p>
+
+    <div class="quiz-grid">
+      <a href="quiz_computer.html" class="quiz-card">
+        <div class="icon">💻</div>
+        <h3>Computer Science</h3>
+        <span>10 Questions</span>
+      </a>
+
+      <a href="quiz_physics.html" class="quiz-card">
+        <div class="icon">⚛️</div>
+        <h3>Physics</h3>
+        <span>10 Questions</span>
+      </a>
+
+      <a href="quiz_history.html" class="quiz-card">
+        <div class="icon">🏛️</div>
+        <h3>History</h3>
+        <span>10 Questions</span>
+      </a>
+
+      <a href="quiz_geography.html" class="quiz-card">
+        <div class="icon">🌍</div>
+        <h3>Geography</h3>
+        <span>10 Questions</span>
+      </a>
+
+      <a href="quiz_literature.html" class="quiz-card">
+        <div class="icon">📚</div>
+        <h3>Literature</h3>
+        <span>10 Questions</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+   
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("welcome-msg").innerText = `Welcome, ${currentUser}!`;
+    }
+
+  
+    function logout() {
+      localStorage.removeItem("currentUser");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
