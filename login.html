@@ -1,124 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,intial-scale=1.0">
-
-<title>Login Form</title>
-
-<style>
-
-*{
-Margin:0;
-padding:0;
-Box-sizing:border-box;
-Font-family:"Poppins",sans-serif;
-}
-body{
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-background:url('https://img.magnific.com/premium-photo/3d-color-question-marks-frame-purple-render-background-concept-school-education-questionnaire-quiz-banner-template-with-border-ask-sign-symbols-empty-space-text_645257-2721.jpg?semt=ais_hybrid&w=740&q=80') no-repeat;
-Background-size:cover;
-Background-position:center;}
-
-.wrapper{
- Width:420px;
- Background:transparent;
- Border:2px solid rgba(255,255,255,0.2);
- Backdrop-filter:blur(15px);
-  Box-shadow:0 0 10px rgba(0,0,0,0.2);
- Color:#fff;
- Border-radius:10px;
-Padding:30px 40px;
- }
- .wrapper h1{
-font-size:36px;
-text-align:center;
-}
-.wrapper .input-box{
- Width:100%;
- Height:50px;
- Margin:30px 0;}
-
-.input-box input{
-Width:100%;
-Height:100%;
-Background:transparent;
-Border:none;
-Outline:none;
-Border:2px solid rgba(255,255,255,0.2);
-Border-radius:40px;
-Font-size:16px;
-Color:#fff;
-Padding:15px 40px 15px 15px;
- }
-.input-box input::placeholder {
-Color:#fff;}
-.remember-forgot a{
- Color:#fff;
- Text-decoration:none;
- 
-}
-.remember-forgot a:hover{
- 
- Text-decoration:underline;
-}
-.wrapper .btn{
-Width:100%;
-Height:40px;
-Background:#00008B;
-Border:none;
-Outline:none;
-Border-radius:40px;
-Box-shadow:0 0 10px rbga(0,0,0,0.1);
-Cursor:pointer;
-Font-size:16px;
-Color:#fff;
-Font-weigth:600;
-
-}
-.wrapper .btn:hover{
-Background:#4169E1;}
-
-.wrapper .register-link{
-Font-size:14.5px;
-Text-align:center;
-Margin:20px 0 15px;
-}
-.register-link p a{
-Color:#fff;
-Text-decoration:none;
-Font-weigth:600;
-}
-.register-link p a:hover{
-Text-decoration: underline;
-}
-
-
-
-</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form - WebArena</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: url('https://img.magnific.com/premium-photo/3d-color-question-marks-frame-purple-render-background-concept-school-education-questionnaire-quiz-banner-template-with-border-ask-sign-symbols-empty-space-text_645257-2721.jpg?semt=ais_hybrid&w=740&q=80') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+    .wrapper {
+      width: 420px;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      color: #fff;
+      border-radius: 10px;
+      padding: 30px 40px;
+    }
+    .wrapper h1 {
+      font-size: 36px;
+      text-align: center;
+    }
+    .wrapper .input-box {
+      width: 100%;
+      height: 50px;
+      margin: 30px 0;
+    }
+    .input-box input {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      outline: none;
+      border-radius: 40px;
+      font-size: 16px;
+      color: #fff;
+      padding: 15px 40px 15px 15px;
+    }
+    .input-box input::placeholder {
+      color: #fff;
+    }
+    .remember-forgot a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .remember-forgot a:hover {
+      text-decoration: underline;
+    }
+    .wrapper .btn {
+      width: 100%;
+      height: 40px;
+      background: #00008B;
+      border: none;
+      outline: none;
+      border-radius: 40px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 600;
+    }
+    .wrapper .btn:hover {
+      background: #4169E1;
+    }
+    .wrapper .register-link {
+      font-size: 14.5px;
+      text-align: center;
+      margin: 20px 0 15px;
+    }
+    .register-link p a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .register-link p a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 
-<div class="wrapper">
-<form action="home.html">
-    <h1>Login</h1>
-     <div class="input-box">
-       <input type="text" placeholder="Username" required>
+  <div class="wrapper">
+    <form id="loginForm">
+      <h1>Login</h1>
+      <div class="input-box">
+        <input type="text" id="username" placeholder="Username" required>
       </div>
-     <div class="input-box">
-       <input type="password" placeholder="Password" required>
+      <div class="input-box">
+        <input type="password" id="password" placeholder="Password" required>
       </div>
-  <div class="remember-forgot">
-    <a href="#">Forgot Password?</a> </div><br>
-  <button type="submit" class="btn">Login</button>
-  <div class="register-link">
-        <p>Don't have account?<a href="register.html">Register</a></p>
-   </div>
+      <div class="remember-forgot">
+        <a href="#">Forgot Password?</a>
+      </div><br>
+      <button type="submit" class="btn">Login</button>
+      <div class="register-link">
+        <p>Don't have an account? <a href="register.html">Register</a></p>
+      </div>
+    </form>
+  </div>
 
-</form>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const userField = document.getElementById("username").value.trim();
+      const passField = document.getElementById("password").value;
+
+      // 1. Fetch registered users from localStorage (or fallback if empty)
+      const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || {};
+
+      // 2. Validate credentials (if user exists, check pass; otherwise allow login for demo)
+      if (registeredUsers[userField] && registeredUsers[userField] !== passField) {
+        alert("Incorrect password! Please try again.");
+        return;
+      }
+
+      // 3. Save active session
+      localStorage.setItem("currentUser", userField);
+
+      // 4. Redirect to homepage
+      window.location.href = "homepage.html";
+    });
+  </script>
 </body>
 </html>
