@@ -104,7 +104,7 @@ Text-decoration: underline;
 <body>
 
 <div class="wrapper">
-<form >
+
     <h1>Login</h1>
      <div class="input-box">
        <input type="text" placeholder="Username" id="name" required>
@@ -114,32 +114,28 @@ Text-decoration: underline;
       </div>
   <div class="remember-forgot">
     <a href="#">Forgot Password?</a> </div><br>
-  <button type="submit" onclick="login()" class="btn">Login</button>
+  <button  onclick="login()" class="btn">Login</button>
   <div class="register-link">
         <p>Don't have account?<a href="register.html">Register</a></p>
    </div>
 
-</form>
+
 <script>
- Function login(){
+ function login(){
+
+
  let name=document.getElementById("name").value;
  let password=document.getElementById("password").value;
  
-let savedName=localstorage.getitem("name");
-let savedPassword=localStorage.getitem("password");
+let savedName=localStorage.getItem("name");
+let savedPassword=localStorage.getItem("password");
 
-
-
-if(name===savedName&&password===savedPassword){
- Window.location.href="Home.html"; }
+if(name===savedName && password===savedPassword){
+ window.location.href="homepage final.html"; }
 else{
-alert("Invalid email or password");}
-
-     
-
-
-
-
+alert("Invalid email or password");
+}
+}
 </script>
 </body>
 </html>
