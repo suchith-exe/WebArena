@@ -120,23 +120,44 @@ Text-decoration: underline;
   
 </div>
 <script>
- function register(){
- let name=document.getElementById("name").value;
- let email=document.getElementById("email").value;
- let password=document.getElementById("password").value;
- if(name===""||email===""||password===""){
- alert("Please Fill All Fields");
- return;
- }
+  function register() {
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value;
 
-localStorage.setItem("name",name);
-localStorage.setItem("email",email);
-localStorage.setItem("password",password);
+    if (name === "" || email === "" || password === "") {
+      alert("Please Fill All Fields");
+      return;
+    }
 
-alert("Registration Successful");
-window.location.href="login.html";
+    
+    localStorage.setItem("name", name);
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
 
-}
+   
+    let registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || {};
+    registeredUsers[name] = {
+      email: email,
+      password: password
+    };
+    localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+
+  
+    let userStatsKey = `userStats_${name}`;
+    if (!localStorage.getItem(userStatsKey)) {
+      let initialStats = {
+        totalQuizzes: 0,
+        totalScore: 0,
+        maxPossibleScore: 0,
+        history: []
+      };
+      localStorage.setItem(userStatsKey, JSON.stringify(initialStats));
+    }
+
+    alert("Registration Successful");
+    window.location.href = "login.html";
+  }
 </script>
 </body>
 </html>
